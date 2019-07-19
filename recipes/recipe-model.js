@@ -7,7 +7,7 @@ const db = knex(configOptions);
 
 module.exports = {
   find,
-  findSteps,
+  getInstructions,
   findById,
   add,
   update,
@@ -18,15 +18,15 @@ function find() {
   return db('recipes');
 }
 
-function findSteps(id) {
+function getInstructions(id) {
   console.log(id)
   return db('recipes as r')
     .join('steps as s', 'r.id', 's.recipe_id')
     .join('ingredients as i', 's.ingredient_id', 'i.id')
-    .select('r.recipe_name', 's.step_number', 'i.ingredient_name')
+    .select('s.step_number', 'i.ingredient_name', 's.quantity')
     .where('r.id', id)
 }
-
+// 'r.recipe_name',
 function findById(id) {
   return db('recipes')
     .where({ id })

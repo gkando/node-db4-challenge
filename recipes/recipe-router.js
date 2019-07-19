@@ -33,7 +33,7 @@ router.get('/:id/steps', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const steps = await Recipes.findSteps(id);
+    const steps = await Recipes.getInstructions(id);
 
     if (steps.length) {
       res.json(steps);
